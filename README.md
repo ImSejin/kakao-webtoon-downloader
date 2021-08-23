@@ -4,4 +4,4 @@ This is a prototype.
 
 ## Getting started
 
-Copy `main.js`, paste it to console in chrome devtoos and run.
+Copy `main.js`, paste it to console in chrome devtools and run.
