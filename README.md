@@ -1,2 +1,7 @@
-# kakao-webtoon-downloader
-Downloader for kakao webtoons (prototype)
+# Kakao Webtoon Downloader
+
+This is a prototype.
+
+## Getting started
+
+Copy `main.js`, paste it to console in chrome devtoos and run.
