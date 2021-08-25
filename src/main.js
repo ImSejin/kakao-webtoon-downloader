@@ -5,7 +5,7 @@
  * @see https://dev.to/nombrekeff/download-file-from-blob-21ho
  * @see https://superuser.com/questions/1364468/downloading-blob-image/1364474
  */
-function downloadKakaoWebtoons() {
+function downloadKakaoWebtoons(appendPrefix = false) {
   const sleep = (milliseconds) => {
     const timeStart = new Date().getTime();
     while (true) {
@@ -14,6 +14,11 @@ function downloadKakaoWebtoons() {
     }
   }
 
+  // "헤븐-투-헬-054-0001.webp" or "0001.webp"
+  const prefix = appendPrefix
+    ? ((text) => text.substring(0, text.indexOf('/')))(window.decodeURI(location.pathname).replace('/viewer/', '')) + '-'
+    : '';
+
   const images = document.querySelectorAll('div[data-index][class*="spacing_mx_a"] img[src]');
   if (!images || !images.length) return console.log('Cannot find images in this webpage.');
 
@@ -21,7 +26,7 @@ function downloadKakaoWebtoons() {
 
   Array.from(images).map(img => img.src).forEach((src, i) => {
     a.href = src;
-    a.download = `${String(i + 1).padStart(3, '0')}.webp`;
+    a.download = `${prefix}${String(i + 1).padStart(4, '0')}.webp`;
 
     a.dispatchEvent(
       new MouseEvent('click', {
