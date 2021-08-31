@@ -13,4 +13,4 @@ Copy `src/v1/main.js`, paste it to console in chrome devtools and run.
 ### v2
 
 - install node.js 10 or later.
-- `npm start`
+- `npm start --id=<content_id>`
