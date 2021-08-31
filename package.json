@@ -1,0 +1,21 @@
+{
+  "name": "kakao-webtoon-downloader",
+  "version": "0.1.0",
+  "description": "Downloader for kakao webtoons",
+  "main": "src/v2/main.js",
+  "repository": "https://github.com/ImSejin/kakao-webtoon-downloader.git",
+  "author": "ImSejin <hackeres123@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node src/v2/main.js"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "puppeteer": "^10.2.0"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  }
+}
