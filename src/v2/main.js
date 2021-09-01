@@ -74,7 +74,7 @@ const {getEpisodes, getMediaResources} = require('./lib/kakao-apis');
 
         const [, mimeType, format, data] = dataURL.match(/^data:(.*?)(;base64)?,(.+)$/);
         const filename = `${seoId}-${String(j + 1).padStart(4, '0')}.webp`;
-        const fileDir = path.join(rootDir, String(id));
+        const fileDir = path.join(rootDir, String(seoId));
 
         if (!fs.existsSync(fileDir)) fs.mkdirSync(fileDir);
         const pathname = path.join(fileDir, filename);
