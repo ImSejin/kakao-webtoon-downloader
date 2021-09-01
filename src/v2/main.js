@@ -6,11 +6,11 @@ const puppeteer = require('puppeteer');
 const {parseArguments} = require('./lib/args-parser');
 const {getEpisodes, getMediaResources} = require('./lib/kakao-apis');
 
-(async ({id, no, chunk}) => {
+(async ({id, offset, limit}) => {
   let browser;
   try {
-    const contentId = id || 1525;
-    const episodes = await getEpisodes({contentId});
+    const contentId = id;
+    const episodes = await getEpisodes({contentId, offset, limit});
 
     // Creates a directory of content.
     const rootDir = path.join('.', String(contentId));
