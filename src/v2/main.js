@@ -20,7 +20,13 @@ const {getEpisodes, getMediaResources} = require('./lib/kakao-apis');
     const page = await browser.newPage();
 
     for (const i in episodes) {
-      const {id, seoId} = episodes[i];
+      const {id, seoId, readable} = episodes[i];
+
+      if (!readable) {
+        console.warn(`Cannot download '${seoId}', because it is paid episode`);
+        continue;
+      }
+
       await page.goto(`https://webtoon.kakao.com/viewer/${seoId}/${id}`);
 
       // Gets the number of images on this episode.
