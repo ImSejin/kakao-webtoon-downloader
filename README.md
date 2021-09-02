@@ -8,9 +8,14 @@
 
 ### v1
 
-Copy `src/v1/main.js`, paste it to console in chrome devtools and run.
+- Copy `src/v1/main.js`.
+- Paste it to console in chrome devtools.
+- Run that function.
+
+
 
 ### v2
 
-- install node.js 10 or later.
-- `npm start --id=<content_id>`
+- Install node.js 10 or later.
+- Run `npm start --id=<content_id> --offset=<offset> --limit=<limit>`
+
