@@ -8,6 +8,23 @@ const {axiosConfig} = require('../config/axios-config');
 const $axios = axios.create(axiosConfig);
 
 /**
+ * Returns content.
+ *
+ * @param contentId
+ * @returns {Promise<{id, adult, seoId, title, authors}>}
+ */
+exports.getContent = async (contentId) => {
+  if (contentId <= 0) throw new Error(`contentId must be greater than 0, but it is '${contentId}'`);
+
+  // https://gateway-kw.kakao.com/decorator/v1/decorator/contents/1299
+  const baseURL = 'https://gateway-kw.kakao.com/decorator/v1/decorator/contents';
+  const {data} = await $axios.get(`${baseURL}/${contentId}`);
+  const {adult, authors, id, seoId, title} = data.data;
+
+  return {adult, authors, id, seoId, title};
+};
+
+/**
  * Returns episodes.
  *
  * @param contentId
