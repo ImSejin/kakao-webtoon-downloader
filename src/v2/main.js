@@ -4,23 +4,30 @@ const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
 const {parseArguments} = require('./lib/args-parser');
-const {getEpisodes, getMediaResources} = require('./lib/kakao-apis');
+const {getContent, getEpisodes, getMediaResources} = require('./lib/kakao-apis');
 
 (async ({id, offset, limit}) => {
   let browser;
+
   try {
     const contentId = id;
     const episodes = await getEpisodes({contentId, offset, limit});
+    if (!episodes.length) return;
+
+    const {title, authors} = await getContent(contentId);
 
     // Creates a directory of content.
-    const rootDir = path.join('.', String(contentId));
+    const authorNames = Array.from(new Set(authors.sort((a, b) => a.order - b.order)
+        .filter(({type}) => type === 'AUTHOR' || type === 'ILLUSTRATOR')
+        .map(it => it.name))).join(', ');
+    const rootDir = path.join('.', `D_${title} - ${authorNames}`);
     if (!fs.existsSync(rootDir)) fs.mkdirSync(rootDir);
 
     browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
 
     for (const i in episodes) {
-      const {id, seoId, readable} = episodes[i];
+      const {id, seoId, title, readable} = episodes[i];
 
       if (!readable) {
         console.warn(`Cannot download '${seoId}', because it is paid episode`);
@@ -66,19 +73,21 @@ const {getEpisodes, getMediaResources} = require('./lib/kakao-apis');
         return await Promise.resolve(requestBlobsAsync(getBlobURLs()));
       });
 
+      const episodeNo = seoId.replace(/^.+-(\d+)$/, '$1');
+
       dataURLs.forEach((dataURL, j, arr) => {
         // Validates data URL.
         if (typeof dataURL !== 'string' || !dataURL.startsWith('data:')) {
           throw new Error(`Invalid Data URI: ${dataURL}`);
         }
 
-        const [, mimeType, format, data] = dataURL.match(/^data:(.*?)(;base64)?,(.+)$/);
-        const filename = `${seoId}-${String(j + 1).padStart(4, '0')}.webp`;
-        const fileDir = path.join(rootDir, String(seoId));
+        const fileDir = path.join(rootDir, `${episodeNo.padStart(4, '0')} - ${title}`);
+        const filename = `${String(j).padStart(4, '0')}.webp`;
 
         if (!fs.existsSync(fileDir)) fs.mkdirSync(fileDir);
         const pathname = path.join(fileDir, filename);
 
+        const [, mimeType, format, data] = dataURL.match(/^data:(.*?)(;base64)?,(.+)$/);
         fs.writeFile(pathname, data, 'base64', () => {
         });
 
