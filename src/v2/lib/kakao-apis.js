@@ -7,6 +7,14 @@ const {axiosConfig} = require('../config/axios-config');
 
 const $axios = axios.create(axiosConfig);
 
+/**
+ * Returns episodes.
+ *
+ * @param contentId
+ * @param offset
+ * @param limit
+ * @returns {Promise<[Episode]>}
+ */
 exports.getEpisodes = async ({contentId, offset = 0, limit = 30}) => {
   if (contentId <= 0) throw new Error(`contentId must be greater than 0, but it is '${contentId}'`);
   if (offset < 0) throw new Error(`offset must be zero or positive, but it is '${offset}'`);
@@ -25,6 +33,12 @@ exports.getEpisodes = async ({contentId, offset = 0, limit = 30}) => {
   return data.data.episodes.map(it => new Episode(it));
 };
 
+/**
+ * Returns media resources of the content.
+ *
+ * @param id episode number
+ * @returns {Promise<exports.Media>}
+ */
 exports.getMediaResources = async (id) => {
   if (id <= 0) throw new Error(`id must be greater than 0, but it is '${id}'`);
 
