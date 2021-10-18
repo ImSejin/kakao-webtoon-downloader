@@ -17,5 +17,5 @@
 ### v2
 
 - Install node.js 10 or later.
-- Run `npm start --id=<content_id> --offset=<offset> --limit=<limit>`
+- Run `npm start -- --id=<content_id> --offset=<offset> --limit=<limit>`
 
