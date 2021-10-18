@@ -71,7 +71,7 @@ const {getContent, getEpisodes, getMediaResources} = require('./lib/kakao-apis')
           return Array.from(elements, img => img.src);
         }
 
-        return await Promise.resolve(requestBlobsAsync(getBlobURLs()));
+        return await requestBlobsAsync(getBlobURLs());
       });
 
       const episodeNo = seoId.replace(/^.+-(\d+)$/, '$1');
