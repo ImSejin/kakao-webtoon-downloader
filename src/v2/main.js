@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
 const {parseArguments} = require('./lib/args-parser');
+const {replaceUnallowables} = require('./lib/unallowable-replacer');
 const {getContent, getEpisodes, getMediaResources} = require('./lib/kakao-apis');
 
 (async ({id, offset, limit}) => {
@@ -20,7 +21,7 @@ const {getContent, getEpisodes, getMediaResources} = require('./lib/kakao-apis')
     const authorNames = Array.from(new Set(authors.sort((a, b) => a.order - b.order)
         .filter(({type}) => type === 'AUTHOR' || type === 'ILLUSTRATOR')
         .map(it => it.name))).join(', ');
-    const rootDir = path.join('.', `D_${title} - ${authorNames}`);
+    const rootDir = path.join('/', `D_${replaceUnallowables(title)} - ${authorNames}`);
     if (!fs.existsSync(rootDir)) fs.mkdirSync(rootDir);
 
     browser = await puppeteer.launch({headless: true});
@@ -81,7 +82,7 @@ const {getContent, getEpisodes, getMediaResources} = require('./lib/kakao-apis')
           throw new Error(`Invalid Data URI: ${dataURL}`);
         }
 
-        const fileDir = path.join(rootDir, `${episodeNo.padStart(4, '0')} - ${title}`);
+        const fileDir = path.join(rootDir, `${episodeNo.padStart(4, '0')} - ${replaceUnallowables(title)}`);
         const filename = `${String(j).padStart(4, '0')}.webp`;
 
         if (!fs.existsSync(fileDir)) fs.mkdirSync(fileDir);
