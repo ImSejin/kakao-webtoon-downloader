@@ -26,8 +26,10 @@ function downloadKakaoWebtoons({chunkSize = 5, appendPrefix = false}) {
       ? ((text) => text.substring(0, text.indexOf('/')))(window.decodeURI(location.pathname).replace('/viewer/', '')) + '-'
       : '';
 
-  const images = document.querySelectorAll('div[data-index][class*="spacing_mx_a"] img[src]');
+  const images = document.querySelectorAll('div[data-index][class*="mx"] img[src^="blob:http"]');
   if (!images || !images.length) return console.log('Cannot find images in this webpage.');
+
+  console.log(`Found ${images.length} image(s) in this webpage.`);
 
   const a = document.createElement('a');
 
