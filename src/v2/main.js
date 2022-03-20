@@ -41,7 +41,7 @@ const {getContent, getEpisodes, getMediaResources} = require('./lib/kakao-apis')
       const {files} = await getMediaResources(id);
 
       // Waits until all images are rendered.
-      await page.waitForXPath(`//*[count(div[@data-index and starts-with(@class, "spacing_mx_")]//img[@src]) = ${files.length}]`, {timeout: 15 * 1000});
+      await page.waitForXPath(`//*[count(div[@data-index and starts-with(@class, "mx-auto max-w-")]//img[@src]) = ${files.length}]`, {timeout: 15 * 1000});
 
       const dataURLs = await page.evaluate(async () => {
         function requestBlobsAsync(blobURLs) {
@@ -67,7 +67,7 @@ const {getContent, getEpisodes, getMediaResources} = require('./lib/kakao-apis')
         }
 
         function getBlobURLs() {
-          const elements = document.querySelectorAll('div[data-index][class*="spacing_mx_a"] img[src]');
+          const elements = document.querySelectorAll('div[data-index][class^="mx-auto max-w-"] img[src^="blob:http"]');
           return Array.from(elements, img => img.src);
         }
 
