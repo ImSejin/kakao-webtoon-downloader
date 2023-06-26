@@ -11,11 +11,15 @@
     "start": "node src/v2/main.js"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^1.4.0",
     "puppeteer": "^10.2.0"
   },
+  "devDependencies": {
+    "eslint": "^8.43.0",
+    "prettier": "^2.8.8"
+  },
   "engines": {
-    "node": ">=10.0.0",
-    "npm": ">=6.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }
