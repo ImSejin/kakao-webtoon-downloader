@@ -32,9 +32,7 @@ import { getContent, getEpisodes, getMediaResources } from './lib/kakao-apis';
     browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
 
-    for (const i in episodes) {
-      const { id, seoId, title, readable } = episodes[i];
-
+    for (const { id, seoId, title, readable } of episodes) {
       if (!readable) {
         console.warn(`Cannot download '${seoId}', because it is paid episode`);
         continue;
