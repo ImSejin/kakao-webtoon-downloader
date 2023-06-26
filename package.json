@@ -2,24 +2,38 @@
   "name": "kakao-webtoon-downloader",
   "version": "0.1.0",
   "description": "Downloader for kakao webtoons",
-  "main": "src/v2/main.js",
+  "main": "src/v2/main.ts",
   "repository": "https://github.com/ImSejin/kakao-webtoon-downloader.git",
   "author": "ImSejin <hackeres123@gmail.com>",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": ">=18.16 <19"
+  },
   "scripts": {
-    "start": "node src/v2/main.js"
+    "start": "node build/src/v2/main.js",
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -w -p tsconfig.json",
+    "lint": "eslint . --ext .ts --ext .mts",
+    "prettier": "prettier --config .prettierrc --write .",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "axios": "^1.4.0",
-    "puppeteer": "^10.2.0"
+    "puppeteer": "^10.2.0",
+    "tslib": "^2.5.3"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
     "eslint": "^8.43.0",
-    "prettier": "^2.8.8"
-  },
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-jest": "^27.2.2",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.3"
   }
 }
