@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
 import { parseArguments } from './lib/args-parser';
-import { sanitizeFileName } from './lib/unallowable-replacer';
+import { sanitizeFileName } from './lib/sanitize-file-name';
 import { getContent, getEpisodes, getMediaResources } from './lib/kakao-apis';
 
 (async ({ id, offset, limit }) => {
