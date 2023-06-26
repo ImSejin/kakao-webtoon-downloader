@@ -20,7 +20,7 @@
 #### Usage
 
 ```bash
-npm start -- --id=<content_id> [--offset=<offset>] [--limit=<limit>]
+npm start id=<content_id> [offset=<offset>] [limit=<limit>]
 ```
 
 - id (required): Identifier of webtoon on URL.
@@ -32,19 +32,19 @@ npm start -- --id=<content_id> [--offset=<offset>] [--limit=<limit>]
 If you want to download through this URL `https://webtoon.kakao.com/content/하렘생존기/1776`.
 
 ```bash
-npm start -- --id=1776
+npm start id=1776
 ```
 
 Downloads the episodes of that webtoon from the first to ep.30.
 
 ```bash
-npm start -- --id=1776 --offset=9
+npm start id=1776 offset=9
 ```
 
 Downloads the episodes of that webtoon from the ep.10 to ep.40.
 
 ```bash
-npm start -- --id=1776 --offset=10 --limit=3
+npm start id=1776 offset=10 limit=3
 ```
 
 Downloads the episodes of that webtoon from ep.11 to ep.14.
